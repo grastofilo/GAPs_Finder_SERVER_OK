@@ -246,7 +246,7 @@ def yfinance_func(nome_ticker):
         dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
             
         with open(cache_file, "wb") as f:
-           operazione =f'salvo il file{cache_file} nella cache'
+           operazione =f'salvo il file {cache_file} nella cache'
            pickle.dump(dati_storici, f)
         
     
