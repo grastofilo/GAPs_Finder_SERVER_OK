@@ -227,7 +227,7 @@ def finvitz_func(nome_ticker):
 
 def yfinance_func(nome_ticker):
     
-    #operazione = ""
+    operazione = ""
     #CACHE_DIR = "cache"
     #os.makedirs(CACHE_DIR, exist_ok=True)
 
