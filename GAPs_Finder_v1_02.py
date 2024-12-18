@@ -251,6 +251,7 @@ def yfinance_func(nome_ticker):
         
     
     lunghezza = {'lunghezza':len(dati_storici),
+                 'somma_splits':dati_storici['Stock Splits'].sum(),
                  'operazione':operazione}
 
     
