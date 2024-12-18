@@ -258,6 +258,19 @@ def finvitz_func(nome_ticker):
 def yfinance_func(nome_ticker):
     
     dati_storici = None
+
+    proxies = {'http': 'http://220.248.70.237:9002'}
+
+   # Creazione di una sessione custom con il proxy
+    session = requests.Session()
+    session.proxies = proxies
+
+  # Usa la sessione per fare la richiesta a yfinance
+    yf._REQUESTS_SESSION = session  # Assegna la sessione personalizzata
+
+  # Ora puoi fare le chiamate a yfinance
+  # data = yf.download("AAPL", period="1d", interval="1m")
+
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     print(len(dati_storici))
