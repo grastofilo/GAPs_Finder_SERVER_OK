@@ -24,10 +24,15 @@ from finvizfinance.quote import finvizfinance
 
 import streamlit as st
 
+import os
+
 #from st_aggrid import AgGrid
 
 
+#%%
 
+CACHE_DIR = "cache"
+os.makedirs(CACHE_DIR, exist_ok=True)
 
 
 
@@ -222,9 +227,28 @@ def finvitz_func(nome_ticker):
 def yfinance_func(nome_ticker):
     
     
-    ticker = yf.Ticker(nome_ticker.upper())
-    dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
-    lunghezza = len(dati_storici)
+    CACHE_DIR = "cache"
+    os.makedirs(CACHE_DIR, exist_ok=True)
+
+    
+    cache_file = os.path.join(CACHE_DIR, f"{nome_ticker}.pkl") #nomina il file + la posizione che avrà quando sarà salvato nella cache
+    print(cache_file)
+    
+    
+    if os.path.exists(cache_file):
+        with open(cache_file, "rb") as f:
+            print(f"Caricamento {nome_ticker} dalla cache.")
+            dati_storici = pickle.load(f)
+    else:
+    
+        ticker = yf.Ticker(nome_ticker.upper())
+        dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
+            
+        with open(cache_file, "wb") as f:
+            pickle.dump(dati_storici, f)
+        
+    
+    lunghezza = len(dati_storici)    
     
     
     #if  not dati_storici.empty:
