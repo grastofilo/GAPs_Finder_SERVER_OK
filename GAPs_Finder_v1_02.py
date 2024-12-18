@@ -241,7 +241,7 @@ def yfinance_func(nome_ticker):
     #        operazione = f"Caricamento {nome_ticker} dalla cache."
     #        dati_storici = pickle.load(f)
     #else:
-    @st.cache_data(ttl=0)
+    
     dati_storici=None;splits=None
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici = ticker.history(period="max",timeout = 30)  # dati periodo massimo disponibile
