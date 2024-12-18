@@ -227,32 +227,34 @@ def finvitz_func(nome_ticker):
 
 def yfinance_func(nome_ticker):
     
-    operazione = ""
-    CACHE_DIR = "cache"
-    os.makedirs(CACHE_DIR, exist_ok=True)
+    #operazione = ""
+    #CACHE_DIR = "cache"
+    #os.makedirs(CACHE_DIR, exist_ok=True)
 
     
-    cache_file = os.path.join(CACHE_DIR, f"{nome_ticker}.pkl") #nomina il file + la posizione che avrà quando sarà salvato nella cache
+    #cache_file = os.path.join(CACHE_DIR, f"{nome_ticker}.pkl") #nomina il file + la posizione che avrà quando sarà salvato nella cache
     #print(cache_file)
     
     
-    if os.path.exists(cache_file):
-        with open(cache_file, "rb") as f:
-            operazione = f"Caricamento {nome_ticker} dalla cache."
-            dati_storici = pickle.load(f)
-    else:
-        dati_storici=None
-        ticker = yf.Ticker(nome_ticker.upper())
-        dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
+    #if os.path.exists(cache_file):
+    #    with open(cache_file, "rb") as f:
+    #        operazione = f"Caricamento {nome_ticker} dalla cache."
+    #        dati_storici = pickle.load(f)
+    #else:
+    dati_storici=None;splits=None
+    ticker = yf.Ticker(nome_ticker.upper())
+    dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
+    splits = ticker.splits
             
-        with open(cache_file, "wb") as f:
-           operazione =f'salvo il file {cache_file} nella cache'
-           pickle.dump(dati_storici, f)
+        #with open(cache_file, "wb") as f:
+          # operazione =f'salvo il file {cache_file} nella cache'
+           #pickle.dump(dati_storici, f)
         
     
     lunghezza = {'lunghezza':len(dati_storici),
                  'somma_splits':dati_storici['Stock Splits'].sum(),
-                 'operazione':operazione}
+                 'operazione':operazione
+                 'n_splits':splits}
 
     
     
