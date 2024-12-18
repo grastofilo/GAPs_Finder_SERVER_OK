@@ -224,7 +224,7 @@ def finvitz_func(nome_ticker):
 
 # CARICO I VALORI di PREZZO DA YAHOO FINANCE
 
-
+@st.cache_data(ttl=0)
 def yfinance_func(nome_ticker):
     
     operazione = ""
