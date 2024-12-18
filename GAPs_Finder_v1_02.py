@@ -233,7 +233,7 @@ def yfinance_func(nome_ticker):
 
     
     cache_file = os.path.join(CACHE_DIR, f"{nome_ticker}.pkl") #nomina il file + la posizione che avrà quando sarà salvato nella cache
-    print(cache_file)
+    #print(cache_file)
     
     
     if os.path.exists(cache_file):
@@ -241,11 +241,12 @@ def yfinance_func(nome_ticker):
             print(f"Caricamento {nome_ticker} dalla cache.")
             dati_storici = pickle.load(f)
     else:
-    
+        dati_storici=None
         ticker = yf.Ticker(nome_ticker.upper())
         dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
             
         with open(cache_file, "wb") as f:
+            print(f'salvo il file{cache_file} nella cache')
             pickle.dump(dati_storici, f)
         
     
