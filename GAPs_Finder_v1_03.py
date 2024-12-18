@@ -25,6 +25,7 @@ from finvizfinance.quote import finvizfinance
 import streamlit as st
 
 import pickle
+import requests
 
 #from st_aggrid import AgGrid
 
