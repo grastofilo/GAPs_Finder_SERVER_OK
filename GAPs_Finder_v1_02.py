@@ -247,7 +247,7 @@ def yfinance_func(nome_ticker):
             
         with open(cache_file, "wb") as f:
            operazione =f'salvo il file{cache_file} nella cache'
-            pickle.dump(dati_storici, f)
+           pickle.dump(dati_storici, f)
         
     
     lunghezza = {'lunghezza':len(dati_storici),
