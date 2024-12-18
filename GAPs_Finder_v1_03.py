@@ -261,8 +261,8 @@ def yfinance_func(nome_ticker):
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     print(len(dati_storici))
     
-    with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
-         pickle.dump(dati_storici, file)
+    #with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
+         #pickle.dump(dati_storici, file)
     
     
     
