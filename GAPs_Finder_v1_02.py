@@ -227,7 +227,7 @@ def finvitz_func(nome_ticker):
 
 def yfinance_func(nome_ticker):
     
-    
+    operazione = None
     CACHE_DIR = "cache"
     os.makedirs(CACHE_DIR, exist_ok=True)
 
@@ -238,7 +238,7 @@ def yfinance_func(nome_ticker):
     
     if os.path.exists(cache_file):
         with open(cache_file, "rb") as f:
-            print(f"Caricamento {nome_ticker} dalla cache.")
+            operazione = f"Caricamento {nome_ticker} dalla cache."
             dati_storici = pickle.load(f)
     else:
         dati_storici=None
@@ -246,11 +246,13 @@ def yfinance_func(nome_ticker):
         dati_storici = ticker.history(period="max")  # dati periodo massimo disponibile
             
         with open(cache_file, "wb") as f:
-            print(f'salvo il file{cache_file} nella cache')
+           operazione =f'salvo il file{cache_file} nella cache'
             pickle.dump(dati_storici, f)
         
     
-    lunghezza = len(dati_storici)    
+    lunghezza = {'lunghezza':len(dati_storici),
+                 'operazione':operazione}
+
     
     
     #if  not dati_storici.empty:
