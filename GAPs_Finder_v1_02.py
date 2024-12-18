@@ -243,7 +243,7 @@ def yfinance_func(nome_ticker):
     #else:
     
     dati_storici=None;splits=None
-    yf.clear_cache()
+    #requests_cache.install_cache('no_cache', expire_after=0)
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici = ticker.history(period="max",timeout = 30)  # dati periodo massimo disponibile
     splits = ticker.splits
