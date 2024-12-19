@@ -25,6 +25,7 @@ from finvizfinance.quote import finvizfinance
 import streamlit as st
 
 import pickle
+
 import requests
 
 #from st_aggrid import AgGrid
@@ -258,25 +259,26 @@ def finvitz_func(nome_ticker):
 def yfinance_func(nome_ticker):
     
     dati_storici = None
-
+    
     proxies = {'http': 'http://220.248.70.237:9002'}
 
-   # Creazione di una sessione custom con il proxy
+    # Creazione di una sessione custom con il proxy
     session = requests.Session()
     session.proxies = proxies
 
-  # Usa la sessione per fare la richiesta a yfinance
+    # Usa la sessione per fare la richiesta a yfinance
     yf._REQUESTS_SESSION = session  # Assegna la sessione personalizzata
 
-  # Ora puoi fare le chiamate a yfinance
-  # data = yf.download("AAPL", period="1d", interval="1m")
-
+    # Ora puoi fare le chiamate a yfinance
+    # data = yf.download("AAPL", period="1d", interval="1m")
+  
+  
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     print(len(dati_storici))
     
-    #with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
-         #pickle.dump(dati_storici, file)
+    # with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
+    #      pickle.dump(dati_storici, file)
     
     
     
@@ -428,8 +430,8 @@ def ricerca_gaps(nome_ticker,dati_storici,gap_perc_A,gap_perc_B,volume,prezzo_A,
         
         
     else: 
-        print(f' il titolo {nome_ticker.value} non ha nessun gap superiore o uguale al {gap_perc_A}%')
-        
+        print(f' il titolo {nome_ticker} non ha nessun gap superiore o uguale al {gap_perc_A}%')
+        return gaps
         
         
 #%%
@@ -666,7 +668,7 @@ with col1:
       
     
     with st.form(key=f'GAPs_Finder'):
-         nome_ticker = st.text_input('**GAPs Finder v1.03**',placeholder='Enter the Ticker').strip()
+         nome_ticker = st.text_input('**GAPs Finder v1.01**',placeholder='Enter the Ticker').strip()
          bottone_ricerca = st.form_submit_button('ricerca GAPs')
          
     
