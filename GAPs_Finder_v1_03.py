@@ -259,13 +259,13 @@ def finvitz_func(nome_ticker):
 
 def yfinance_func(nome_ticker):
     
-    dati_storici_01 = None; dati_storici_02 = None
+    dati_storici = None; dati_storici_02 = None
 
     ticker = yf.Ticker(nome_ticker.upper())
 
-    dati_storici_01 =  ticker.history(period="max")  # dati periodo massimo disponibile  
-    st.write(len(dati_storici_01))
-    st.write(dati_storici_01['Stock Splits'].sum())
+    dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
+    st.write(len(dati_storici))
+    st.write(dati_storici['Stock Splits'].sum())
 
     
     
@@ -294,10 +294,10 @@ def yfinance_func(nome_ticker):
     
     
     #if  not dati_storici_01.empty:
-    if len(dati_storici_01.columns)==7:   
+    if len(dati_storici.columns)==7:   
         
         # APPORTO dei CORRETTIVI al DF dati_storici  ORIGINALE
-        dati_storici = dati_storici_01.reset_index().copy()
+        dati_storici = dati_storici.reset_index()
         dati_storici['Data'] = dati_storici['Date'].dt.date
         dati_storici.drop('Date',inplace=True,axis=1)
         dati_storici.rename(columns={'Data':'Date'},inplace=True)
@@ -306,18 +306,18 @@ def yfinance_func(nome_ticker):
         
         
         
-        return dati_storici_01
+        return dati_storici
         # converto in formato datetime
         #dati_storici['Date'] = pd.to_datetime(dati_storici['Date'])
         
         
         
     else:
-        if dati_storici_01.empty:
+        if dati_storici.empty:
             st.write('Nonexistent or delisted title')
             return dati_storici_01
         
-        if len(dati_storici_01.columns)==8:
+        if len(dati_storici.columns)==8:
             st.write(f"{nome_ticker.upper()} it's not a stock")
             dati_storici = pd.DataFrame()
             return dati_storici
