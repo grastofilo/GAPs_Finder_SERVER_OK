@@ -294,10 +294,10 @@ def yfinance_func(nome_ticker):
     
     
     #if  not dati_storici_01.empty:
-    if len(dati_storici.columns)==7:   
+    if len(dati_storici_01.columns)==7:   
         
         # APPORTO dei CORRETTIVI al DF dati_storici  ORIGINALE
-        dati_storici = dati_storici.reset_index()
+        dati_storici = dati_storici_01.reset_index().copy()
         dati_storici['Data'] = dati_storici['Date'].dt.date
         dati_storici.drop('Date',inplace=True,axis=1)
         dati_storici.rename(columns={'Data':'Date'},inplace=True)
