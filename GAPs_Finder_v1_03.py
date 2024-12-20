@@ -262,8 +262,7 @@ def yfinance_func(nome_ticker):
     dati_storici = None
     
     proxies = {
-    'http': 'http://220.248.70.237:9002',
-    'https': 'http://220.248.70.237:9002'}
+    'http': 'http://220.248.70.237:9002'} # 'https': 'http://220.248.70.237:9002'
 
     # Creazione di una sessione custom con il proxy
     session = requests.Session()
