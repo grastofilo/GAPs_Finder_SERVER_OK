@@ -37,6 +37,7 @@ def stress_test(ticker_list, proxy=None, max_iterations=10):
         # Incrementa il contatore
         cont = (cont + 1) % len(ticker_list)
         iteration += 1
+        st.write(cont)
 
 
 if __name__ == "__main__":
