@@ -27,6 +27,8 @@ import streamlit as st
 import os
 import pickle
 
+import shutil
+
 #from st_aggrid import AgGrid
 
 
@@ -34,6 +36,8 @@ import pickle
 
 CACHE_DIR = "cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
+
+shutil.rmtree(CACHE_DIR)
 
 
 
