@@ -3,7 +3,8 @@ import yfinance as yf
 import requests
 import streamlit as st
 
-
+if st.button("stop"):
+        break
 cont = 0
 while 0 < 1:
     
@@ -38,7 +39,7 @@ while 0 < 1:
 
     
 
-    print(f'split_01 = {split_01: .3f} - split_02 = {split_02: .3f}')
+    st.write(f'split_01 = {split_01: .3f} - split_02 = {split_02: .3f}')
     sleep(2)
     
     if split_01 != split_02:
@@ -55,5 +56,4 @@ while 0 < 1:
         cont = 0
 
 
-    if st.button("stop"):
-        break
+    
