@@ -15,7 +15,7 @@ def run_task(nome_ticker):
 
     
     
-    return f'ciao{nome_ticker}'#f'questo è il valore del subprocess_001 {dati_storici['Stock Splits'].sum()}'
+    return f'questo è il valore del subprocess_001 {dati_storici['Stock Splits'].sum()}'
     
 if __name__ == "__main__":
     nome_ticker = sys.argv[1]  # Recupera l'argomento passato dalla riga di comando
