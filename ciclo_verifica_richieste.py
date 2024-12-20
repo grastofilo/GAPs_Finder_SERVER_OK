@@ -1,6 +1,6 @@
 from multiprocessing import Process
 import time
-import yfinance as yf
+import yfinance as yf 
 import requests
 
 def fetch_data(process_id, iterations):
