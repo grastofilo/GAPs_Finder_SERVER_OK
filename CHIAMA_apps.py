@@ -16,6 +16,6 @@ def run_external_script(nome_ticker):
 
 # Usa la funzione in Streamlit
 if st.button('Esegui script'):
-    nome_ticker = "Dati di esempio"
+    nome_ticker = "SONN"
     output = run_external_script(nome_ticker)
     st.write(output)
