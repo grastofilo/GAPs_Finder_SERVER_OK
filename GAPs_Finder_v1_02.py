@@ -251,9 +251,9 @@ def yfinance_func(nome_ticker):
         ticker = yf.Ticker(nome_ticker.upper())
         dati_storici = ticker.history(period="max",timeout = 30)  # dati periodo massimo disponibile
                 
-        with open(cache_file, "wb") as f:
-            operazione =f'salvo il file {cache_file} nella cache'
-            pickle.dump(dati_storici, f)
+        #with open(cache_file, "wb") as f:
+        #    operazione =f'salvo il file {cache_file} nella cache'
+        #    pickle.dump(dati_storici, f)
             
         
     lunghezza = {'lunghezza':len(dati_storici),
