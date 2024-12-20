@@ -27,7 +27,7 @@ import streamlit as st
 import pickle
 
 import requests
-from time import sleep
+#from time import sleep
 
 #from st_aggrid import AgGrid
 
@@ -278,7 +278,7 @@ def yfinance_func(nome_ticker):
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     st.write(len(dati_storici))
     st.write(dati_storici['Stock Splits'].sum())
-    sleep(5)
+    
     
     # with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
     #      pickle.dump(dati_storici, file)
