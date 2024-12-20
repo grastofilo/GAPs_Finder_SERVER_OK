@@ -1,4 +1,7 @@
 from time import sleep
+import yfinance as yf
+import requests
+import streamlit as st
 
 
 cont = 0
