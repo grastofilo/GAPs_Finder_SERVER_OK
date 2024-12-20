@@ -37,7 +37,7 @@ import shutil
 CACHE_DIR = "cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
-#shutil.rmtree(CACHE_DIR)
+shutil.rmtree(CACHE_DIR)
 
 
 
