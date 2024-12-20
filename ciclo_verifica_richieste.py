@@ -27,8 +27,8 @@ def fetch_data(process_id, iterations):
         dati_storici_02 = ticker.history(period="max")
         split_02 = dati_storici_02['Stock Splits'].sum()
 
-        print(f"Process {process_id}: Iteration {i+1}/{iterations} - Ticker: {ticker_symbol}")
-        print(f"split_01 = {split_01:.3f}, split_02 = {split_02:.3f}")
+        st.write(f"Process {process_id}: Iteration {i+1}/{iterations} - Ticker: {ticker_symbol}")
+        st.write(f"split_01 = {split_01:.3f}, split_02 = {split_02:.3f}")
 
         # Simula una pausa per evitare richieste troppo veloci
         time.sleep(2)
@@ -51,3 +51,6 @@ def run_processes():
 
 if __name__ == "__main__":
     run_processes()
+
+st.write(completato)
+
