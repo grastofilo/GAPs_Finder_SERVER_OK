@@ -18,7 +18,6 @@ def process_queue(queue, result_queue):
         
         # Metti il risultato nella coda dei risultati
         result_queue.put((ticker_symbol, split_sum))
-        time.sleep(2)  # Ritardo tra le richieste per evitare rate limiting
         queue.task_done()
 
 # Creazione delle code
@@ -44,11 +43,17 @@ if st.button("Avvia Test"):
     st.write("Esecuzione in corso...")
     
     # Mostra i risultati man mano che vengono processati
-    while not task_queue.empty() or not result_queue.empty():
-        if not result_queue.empty():
-            ticker_symbol, split_sum = result_queue.get()
+    while True:
+        # Controlla se ci sono risultati da mostrare
+        try:
+            ticker_symbol, split_sum = result_queue.get(timeout=5)  # Timeout per evitare blocchi
             st.write(f"Ticker: {ticker_symbol}, Stock Splits: {split_sum:.3f}")
-        time.sleep(0.1)
+            result_queue.task_done()
+        except:
+            # Se non ci sono risultati, esci dal loop
+            if task_queue.empty() and result_queue.empty():
+                break
+            time.sleep(0.1)
 
     # Pulizia finale
     task_queue.put(None)  # Segnale per terminare il thread
