@@ -52,5 +52,5 @@ while 0 < 1:
         cont = 0
 
 
-    st.button("stop"):
+    if st.button("stop"):
         break
