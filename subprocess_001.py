@@ -9,7 +9,8 @@ Created on Fri Dec 20 12:12:56 2024
 import sys
 
 def run_task(nome_ticker):
-    
+
+    print(f"Dati ricevuti dallo script: {nome_ticker}")
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici =  ticker.history(period="max")
 
