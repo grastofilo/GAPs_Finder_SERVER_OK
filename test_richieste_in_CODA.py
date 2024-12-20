@@ -13,11 +13,16 @@ def process_queue(queue, result_queue):
         
         # Esegui la richiesta a YFinance
         ticker = yf.Ticker(ticker_symbol)
-        dati_storici = ticker.history(period="max")
-        split_sum = dati_storici['Stock Splits'].sum()
+        try:
+            dati_storici = ticker.history(period="max")
+            split_sum = dati_storici['Stock Splits'].sum()
+        except Exception as e:
+            split_sum = None
+            result_queue.put((ticker_symbol, split_sum, str(e)))
+        else:
+            # Metti il risultato nella coda dei risultati
+            result_queue.put((ticker_symbol, split_sum, None))
         
-        # Metti il risultato nella coda dei risultati
-        result_queue.put((ticker_symbol, split_sum))
         queue.task_done()
 
 # Creazione delle code
@@ -45,19 +50,23 @@ if st.button("Avvia Test"):
     
     st.write("Esecuzione in corso...")
     
-    # Mostra i risultati man mano che vengono processati
+    start_time = time.time()  # Inizia a contare il tempo
+    elapsed_time = 0
+    timeout = 60  # Timeout in secondi per il blocco del processo
+
     while True:
         # Controlla se ci sono risultati da mostrare
         try:
-            ticker_symbol, split_sum = result_queue.get(timeout=5)  # Timeout per evitare blocchi
-            st.write(f"Ticker: {ticker_symbol}, Stock Splits: {split_sum:.3f}")
+            ticker_symbol, split_sum, error = result_queue.get(timeout=5)  # Timeout per evitare blocchi
+            if error:
+                st.write(f"Errore con il ticker {ticker_symbol}: {error}")
+            else:
+                st.write(f"Ticker: {ticker_symbol}, Stock Splits: {split_sum:.3f}")
             result_queue.task_done()
         except:
             # Se non ci sono risultati, esci dal loop
             if task_queue.empty() and result_queue.empty():
                 break
-            time.sleep(0.1)
-
-    # Pulizia finale
-    task_queue.put(None)  # Segnale per terminare il thread
-    thread.join()
+            elapsed_time = time.time() - start_time
+            if elapsed_time > timeout:
+                st.write("Il proc
