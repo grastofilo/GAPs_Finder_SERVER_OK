@@ -36,8 +36,11 @@ tickers = st.text_input("Inserisci i ticker separati da una virgola (es. SONN,BE
 if st.button("Avvia Test"):
     ticker_list = [ticker.strip() for ticker in tickers.split(",")]
     
+    # Genera 100 richieste, replicando i ticker
+    ticker_requests = ticker_list * 10  # 10 volte per ottenere 100 richieste
+    
     # Aggiungi i ticker alla coda
-    for ticker in ticker_list:
+    for ticker in ticker_requests:
         task_queue.put(ticker)
     
     st.write("Esecuzione in corso...")
