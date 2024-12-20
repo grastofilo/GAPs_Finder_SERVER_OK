@@ -1,61 +1,53 @@
 from multiprocessing import Process
-from time import sleep
+import time
 import yfinance as yf
 import requests
-import streamlit as st
 
+def fetch_data(process_id, iterations):
+    """
+    Funzione che esegue il fetch dei dati per un certo numero di iterazioni.
+    process_id: ID del processo, usato per identificare il processo attivo.
+    iterations: Numero di cicli che ogni processo esegue.
+    """
+    ticker_round = ['SONN', 'BENF', 'NUKK']  # Lista di ticker
+    proxies = {'http': 'http://220.248.70.237:9002'}  # Proxy da usare (modifica se necessario)
 
-def stress_test(ticker_list, proxy=None, max_iterations=10):
-    """Esegue un test sui ticker specificati."""
-    cont = 0
-    iteration = 0
+    session = requests.Session()
+    session.proxies = proxies  # Configura il proxy per la sessione
 
-    while iteration < max_iterations:
-        ticker = yf.Ticker(ticker_list[cont])
+    for i in range(iterations):  # Numero totale di iterazioni (modifica qui per allungare il ciclo)
+        ticker_symbol = ticker_round[i % len(ticker_round)]  # Ciclo sui ticker
+        ticker = yf.Ticker(ticker_symbol, session=session)
 
-        # Richiesta 01
-        dati_storici = ticker.history(period="max")
-        split_01 = dati_storici['Stock Splits'].sum()
+        # Prima richiesta
+        dati_storici_01 = ticker.history(period="max")
+        split_01 = dati_storici_01['Stock Splits'].sum()
 
-        # Richiesta 02 con proxy (se specificato)
-        if proxy:
-            session = requests.Session()
-            session.proxies = {'http': proxy}
-            yf._REQUESTS_SESSION = session  # Assegna la sessione personalizzata
-
+        # Seconda richiesta con proxy
         dati_storici_02 = ticker.history(period="max")
         split_02 = dati_storici_02['Stock Splits'].sum()
 
-        st.write(f'Ticker: {ticker_list[cont]} | split_01 = {split_01:.3f} - split_02 = {split_02:.3f}')
-        sleep(2)  # Simula una pausa tra le richieste
+        print(f"Process {process_id}: Iteration {i+1}/{iterations} - Ticker: {ticker_symbol}")
+        print(f"split_01 = {split_01:.3f}, split_02 = {split_02:.3f}")
 
-        # Interrompi il ciclo in caso di discrepanze o condizioni
-        if split_01 != split_02:
-            st.write("Discrepanza trovata, interruzione del test.")
-            break
+        # Simula una pausa per evitare richieste troppo veloci
+        #time.sleep(2)
 
-        # Incrementa il contatore
-        cont = (cont + 1) % len(ticker_list)
-        iteration += 1
-        st.write(cont)
+def run_processes():
+    """
+    Avvia due processi paralleli per simulare lo stress-test.
+    """
+    process_count = 2  # Numero di processi (modifica per aggiungere più processi)
+    iterations_per_process = 100  # Numero di cicli per processo (modifica qui per allungare il ciclo)
 
+    processes = []
+    for process_id in range(process_count):
+        process = Process(target=fetch_data, args=(process_id, iterations_per_process))
+        processes.append(process)
+        process.start()
+
+    for process in processes:
+        process.join()
 
 if __name__ == "__main__":
-    # Ticker e configurazione
-    ticker_round = ['SONN', 'BENF', 'NUKK']
-    max_iterations = 20  # Numero massimo di iterazioni
-    proxy_1 = 'http://220.248.70.237:9002'  # Proxy opzionale
-
-    # Crea due processi per eseguire il test simultaneamente
-    process_1 = Process(target=stress_test, args=(ticker_round, None, max_iterations))
-    process_2 = Process(target=stress_test, args=(ticker_round, proxy_1, max_iterations))
-
-    # Avvia i processi
-    process_1.start()
-    process_2.start()
-
-    # Aspetta la conclusione dei processi
-    process_1.join()
-    process_2.join()
-
-    st.write("Stress-Test completato.")
+    run_processes()
