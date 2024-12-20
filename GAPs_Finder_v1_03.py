@@ -688,7 +688,7 @@ with col1:
         
         if nome_ticker:
             
-            
+            st.cache_data.clear()
             dati_yfinance = yfinance_func(nome_ticker)
             
             
