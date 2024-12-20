@@ -4,7 +4,9 @@ import requests
 import streamlit as st
 
 # Flag per interrompere il loop
-stop = st.button('Stop Stress-Test')
+stop = False  # Flag iniziale
+if st.button('Stop Stress-Test', key="stop_test"):
+    stop = True
 
 cont = 0
 
@@ -37,7 +39,8 @@ while not stop:  # Esegui il loop finché il pulsante non viene premuto
     if cont == 3:
         cont = 0
 
-    # Aggiorna il valore di stop
-    stop = st.button('Stop Stress-Test')  # Verifica nuovamente il pulsante
+    # Verifica nuovamente il flag di interruzione
+    if st.button('Stop Stress-Test', key="stop_loop"):
+        stop = True
 
 st.write("Stress-Test terminato.")
