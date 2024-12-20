@@ -52,5 +52,4 @@ def run_processes():
 if __name__ == "__main__":
     run_processes()
 
-st.write(completato)
 
