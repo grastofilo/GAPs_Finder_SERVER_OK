@@ -293,7 +293,7 @@ def yfinance_func(nome_ticker):
   
     
     
-    #if  not dati_storici.empty:
+    #if  not dati_storici_01.empty:
     if len(dati_storici.columns)==7:   
         
         # APPORTO dei CORRETTIVI al DF dati_storici  ORIGINALE
@@ -306,18 +306,18 @@ def yfinance_func(nome_ticker):
         
         
         
-        return dati_storici
+        return dati_storici_01
         # converto in formato datetime
         #dati_storici['Date'] = pd.to_datetime(dati_storici['Date'])
         
         
         
     else:
-        if dati_storici.empty:
+        if dati_storici_01.empty:
             st.write('Nonexistent or delisted title')
-            return dati_storici
+            return dati_storici_01
         
-        if len(dati_storici.columns)==8:
+        if len(dati_storici_01.columns)==8:
             st.write(f"{nome_ticker.upper()} it's not a stock")
             dati_storici = pd.DataFrame()
             return dati_storici
