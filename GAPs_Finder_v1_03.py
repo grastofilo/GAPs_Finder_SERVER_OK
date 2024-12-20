@@ -276,6 +276,7 @@ def yfinance_func(nome_ticker):
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     print(len(dati_storici))
+    print(dati_storici['Stock Splits'].sum())
     
     # with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
     #      pickle.dump(dati_storici, file)
