@@ -242,21 +242,19 @@ def yfinance_func(nome_ticker):
             dati_storici = pickle.load(f)
     else:
     
-        dati_storici=None;splits=None
+        dati_storici=None
         #requests_cache.install_cache('no_cache', expire_after=0)
         ticker = yf.Ticker(nome_ticker.upper())
         dati_storici = ticker.history(period="max",timeout = 30)  # dati periodo massimo disponibile
-        splits = ticker.splits
                 
-            #with open(cache_file, "wb") as f:
-              # operazione =f'salvo il file {cache_file} nella cache'
-               #pickle.dump(dati_storici, f)
+        with open(cache_file, "wb") as f:
+            operazione =f'salvo il file {cache_file} nella cache'
+            pickle.dump(dati_storici, f)
             
         
-        lunghezza = {'lunghezza':len(dati_storici),
-                     'somma_splits':dati_storici['Stock Splits'].sum(),
-                     'operazione':operazione,
-                     'n_splits':len(splits)}
+    lunghezza = {'lunghezza':len(dati_storici),
+                 'somma_splits':dati_storici['Stock Splits'].sum(),
+                 'operazione':operazione}
 
     
     
