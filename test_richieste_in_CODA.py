@@ -69,4 +69,13 @@ if st.button("Avvia Test"):
                 break
             elapsed_time = time.time() - start_time
             if elapsed_time > timeout:
-                st.write("Il proc
+                st.write("Il processo è bloccato o sta impiegando troppo tempo. Verifica la connessione a YFinance.")
+                break
+            time.sleep(0.1)
+
+    # Pulizia finale
+    task_queue.put(None)  # Segnale per terminare il thread
+    thread.join()
+
+    if elapsed_time <= timeout:
+        st.write("Test completato con successo!")
