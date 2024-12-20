@@ -263,6 +263,7 @@ def yfinance_func(nome_ticker):
 
     ticker = yf.Ticker(nome_ticker.upper())
 
+    st.cache_data.clear()
     dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
     st.write(len(dati_storici))
     st.write(dati_storici['Stock Splits'].sum())
@@ -279,7 +280,7 @@ def yfinance_func(nome_ticker):
     # Usa la sessione per fare la richiesta a yfinance
     yf._REQUESTS_SESSION = session  # Assegna la sessione personalizzata
 
-  
+    st.cache_data.clear()
     dati_storici_02 =  ticker.history(period="max")  # dati periodo massimo disponibile  
     st.write(len(dati_storici_02))
     st.write(dati_storici_02['Stock Splits'].sum())
