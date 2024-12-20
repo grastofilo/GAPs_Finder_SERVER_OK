@@ -13,6 +13,7 @@ def run_task(nome_ticker):
     print(f"Dati ricevuti dallo script: {nome_ticker}")
     ticker = yf.Ticker(nome_ticker.upper())
     dati_storici =  ticker.history(period="max")
+    print(f"questo è il valore del subprocess_001 {dati_storici['Stock Splits'].sum()}")
 
     
     
