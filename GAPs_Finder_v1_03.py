@@ -259,7 +259,15 @@ def finvitz_func(nome_ticker):
 
 def yfinance_func(nome_ticker):
     
-    dati_storici = None
+    dati_storici_01 = None; dati_storici_02 = None
+
+    ticker = yf.Ticker(nome_ticker.upper())
+
+    dati_storici_01 =  ticker.history(period="max")  # dati periodo massimo disponibile  
+    st.write(len(dati_storici_01))
+    st.write(dati_storici_01['Stock Splits'].sum())
+
+    
     
     proxies = {
     'http': 'http://220.248.70.237:9002'} # 'https': 'http://220.248.70.237:9002'
@@ -271,14 +279,10 @@ def yfinance_func(nome_ticker):
     # Usa la sessione per fare la richiesta a yfinance
     yf._REQUESTS_SESSION = session  # Assegna la sessione personalizzata
 
-    # Ora puoi fare le chiamate a yfinance
-    # data = yf.download("AAPL", period="1d", interval="1m")
   
-  
-    ticker = yf.Ticker(nome_ticker.upper())
-    dati_storici =  ticker.history(period="max")  # dati periodo massimo disponibile  
-    st.write(len(dati_storici))
-    st.write(dati_storici['Stock Splits'].sum())
+    dati_storici_02 =  ticker.history(period="max")  # dati periodo massimo disponibile  
+    st.write(len(dati_storici_02))
+    st.write(dati_storici_02['Stock Splits'].sum())
     
     
     # with open(f"/Users/ninni/desktop/{nome_ticker}.pkl", "wb") as file:
@@ -286,19 +290,7 @@ def yfinance_func(nome_ticker):
     
     
     
-    # length = 0; length_list=[]
-    # for attempts in range(1,6):
-    #     dati_provvisori = ticker.history(period="max")  # dati periodo massimo disponibile
-        
-    #     if len(dati_provvisori)> length:
-    #         length = len(dati_provvisori)
-    #         dati_storici = dati_provvisori
-            
-    #     length_list.append(length)
-        
-    #     print(length_list)
-    # print(dati_storici['Stock Splits'].sum())
-   
+  
     
     
     #if  not dati_storici.empty:
