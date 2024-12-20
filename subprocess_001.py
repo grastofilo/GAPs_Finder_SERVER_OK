@@ -13,11 +13,11 @@ import yfinance as yf
 def run_task(nome_ticker):
     print(f"Dati ricevuti dallo script: {nome_ticker}")
     
-    ticker = yf.Ticker(nome_ticker.upper())
-    dati_storici = ticker.history(period="max")
+    #ticker = yf.Ticker(nome_ticker.upper())
+    #dati_storici = ticker.history(period="max")
     
     # Aggiungi una gestione del risultato da ritornare
-    return f"questo è il valore del subprocess_001 {dati_storici['Stock Splits'].sum()}"
+    return f"questo è il valore del subprocess_001 {nome_ticker}"
 
 if __name__ == "__main__":
     nome_ticker = sys.argv[1]  # Recupera l'argomento passato dalla riga di comando
