@@ -261,7 +261,7 @@ def yfinance_func(nome_ticker):
     
     dati_storici = None
     
-     proxies = {
+    proxies = {
     'http': 'http://220.248.70.237:9002',
     'https': 'http://220.248.70.237:9002'}
 
