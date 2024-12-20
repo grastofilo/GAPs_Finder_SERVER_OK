@@ -1,17 +1,16 @@
 import streamlit as st
 import subprocess
+import os
 
-# Funzione per eseguire script.py passando dati come argomenti
-def run_external_script(nome_ticker):
-    result = subprocess.run(
-        ['python', 'subprocess_001.py', nome_ticker],
-        capture_output=True,  # Cattura l'output
-        text=True  # Gestisci l'output come stringa
-    )
-    return result.stdout  # Restituisce l'output del subprocess
+# Funzione per eseguire script.py passando dati tramite variabili d'ambiente
+def run_external_script(data):
+    # Imposta la variabile d'ambiente
+    os.environ['DATA'] = data
+    result = subprocess.run(['python', 'script.py'], capture_output=True, text=True)
+    return result.stdout
 
 # Usa la funzione in Streamlit
 if st.button('Esegui script'):
-    nome_ticker = "AAPL"  # Esempio di ticker
-    output = run_external_script(nome_ticker)
-    st.write(output)  # Visualizza l'output nell'app Streamlit
+    data = "Dati di esempio"
+    output = run_external_script(data)
+    st.write(output)
