@@ -331,10 +331,22 @@ def yfinance_func_02(nome_ticker):
 
     ticker_02 = yf.Ticker(nome_ticker.upper())
     dati_storici_02 =  ticker_02.history(period="max",auto_adjust=True)  # dati periodo massimo disponibile
+    split_02 = ticker_02.splits
     st.write("002")
     st.write(len(dati_storici_02))
     st.write(dati_storici_02['Stock Splits'].sum())
+    st.write(sum(split_02))
 
+
+def yfinance_func_03(nome_ticker):
+
+    ticker_03 = yf.Ticker(nome_ticker.upper())
+    dati_storici_03 =  ticker_02.history(period="max",auto_adjust=True)  # dati periodo massimo disponibile
+    split_03 = ticker_03.splits
+    st.write("003")
+    st.write(len(dati_storici_03))
+    st.write(dati_storici_03['Stock Splits'].sum())
+    st.write(sum(split_03))
                 
 
 
@@ -700,7 +712,8 @@ with col1:
             
             st.cache_data.clear()
             dati_yfinance = yfinance_func(nome_ticker)
-            dati_FF = yfinance_func_02(nome_ticker)
+            dati_FF_02 = yfinance_func_02(nome_ticker)
+            dati_FF_03 = yfinance_func_03(nome_ticker)
 
                 
             
