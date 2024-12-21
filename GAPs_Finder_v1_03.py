@@ -268,7 +268,7 @@ def yfinance_func(nome_ticker):
     n_splits = sum(ticker.splits)
     st.write(f"lunghezza:{len(dati_storici)}")
     st.write(f"prezzo/splits{dati_storici['Stock Splits'].sum()}")
-    st.write("splits_alone:{ n_splits = sum(ticker.splits)}")
+    st.write("splits_alone:{sum(ticker.splits)}")
 
     
     
