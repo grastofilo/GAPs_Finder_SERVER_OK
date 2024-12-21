@@ -317,10 +317,15 @@ def yfinance_func(nome_ticker):
             
         
 
-#%%
 
 
+def yfinance_func_02(nome_ticker):
 
+    ticker_02 = yf.Ticker(nome_ticker.upper())
+    dati_storici_02 =  ticker.history(period="max",auto_adjust=True)  # dati periodo massimo disponibile
+    print("002")
+    print(len(dati_storici_02))
+    print(dati_storici_02['Stock Splits'].sum())
 
                 
 
@@ -683,6 +688,7 @@ with col1:
             
             st.cache_data.clear()
             dati_yfinance = yfinance_func(nome_ticker)
+            dati_FF = yfinance_func_02(nome_ticker)
             
             
             if not dati_yfinance.empty:
