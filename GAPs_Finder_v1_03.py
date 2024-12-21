@@ -264,9 +264,11 @@ def yfinance_func(nome_ticker):
     ticker = yf.Ticker(nome_ticker.upper())
 
     st.cache_data.clear()
-    dati_storici =  ticker.history(period="max",auto_adjust=True)  # dati periodo massimo disponibile  
-    st.write(len(dati_storici))
-    st.write(dati_storici['Stock Splits'].sum())
+    dati_storici =  ticker.history(period="max",auto_adjust=True)  # dati periodo massimo disponibile
+    n_splits = sum(ticker.splits)
+    st.write(f"lunghezza:{len(dati_storici)}")
+    st.write(f"prezzo/splits{dati_storici['Stock Splits'].sum()}")
+    st.write("splits_alone:{ n_splits = sum(ticker.splits)}")
 
     
     
