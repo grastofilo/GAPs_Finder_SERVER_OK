@@ -341,7 +341,7 @@ def yfinance_func_02(nome_ticker):
 def yfinance_func_03(nome_ticker):
 
     ticker_03 = yf.Ticker(nome_ticker.upper())
-    dati_storici_03 =  ticker_03.history(period="max",auto_adjust=False,proxy='http': 'http://220.248.70.237:9002')  # dati periodo massimo disponibile
+    dati_storici_03 =  ticker_03.history(period="max",auto_adjust=False,proxy='http://220.248.70.237:9002')  # dati periodo massimo disponibile
     split_03 = ticker_03.splits
     st.write("003")
     st.write(len(dati_storici_03))
