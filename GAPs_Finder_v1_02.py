@@ -249,7 +249,7 @@ def yfinance_func(nome_ticker):
         dati_storici=None
         #requests_cache.install_cache('no_cache', expire_after=0)
         ticker = yf.Ticker(nome_ticker.upper())
-        dati_storici = ticker.history(period="max",timeout = 30)  # dati periodo massimo disponibile
+        dati_storici = ticker.history(period="max",auto_adjust=True,timeout = 30)  # dati periodo massimo disponibile
                 
         #with open(cache_file, "wb") as f:
         #    operazione =f'salvo il file {cache_file} nella cache'
